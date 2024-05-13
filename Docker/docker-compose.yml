@@ -1,0 +1,30 @@
+version: '3.8'
+ 
+services:
+ 
+  db:
+    image: mysql:8.3 #use version 8.3. See https://hub.docker.com/layers/library/mysql/8.3/images/sha256-eeabfa5cd6a2091bf35eb9eae6ae48aab8231fd760f5a61cd0129df454333b1d?context=explore for more information about this version
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: lucab
+      MYSQL_DATABASE: nbamvp_pred
+      MYSQL_USER: lucab
+      MYSQL_PASSWORD: lucab
+      MYSQL_SSL_MODE: DISABLED
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+ 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+ 
+volumes:
+  mysql:
+ 
